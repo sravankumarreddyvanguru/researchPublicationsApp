@@ -27,8 +27,7 @@ mongoose.set("useCreateIndex",true);
 mongoose.set('useFindAndModify', false);
 const userSchema= new mongoose.Schema({
   googleId:String,
-  employeeCode:String,
-  title:String,
+  employeeID:String,
   surName:String,
   middleName:String,
   lastName:String,
@@ -124,35 +123,37 @@ User.register({username:req.body.username},req.body.password,function(err,user){
     }
     else{
       passport.authenticate("local")(req, res, function() {
-        User.findById(req.user._id,function(err,Founduser){
-         if(err)
-         console.log(err);
-         else{
-           if(Founduser){
-           Founduser.employeeCode=req.body.employeeCode;
-           Founduser.title=req.body.title;
-           Founduser.surName=req.body.surName;
-           Founduser.middleName=req.body.middleName;
-           Founduser.lastName=req.body.lastName;
-           Founduser.displayName=req.body.displayName;
-           Founduser.emailId=req.body.emailId;
-           Founduser.mobileNUmber=req.body.mobileNUmber;
-           Founduser.alternateEmailId=req.body.alternateEmailId;
-           Founduser.emergencyContactNo=req.body.emergencyContactNo;
-           Founduser.gender=req.body.gender;
-           Founduser.department=req.body.department;
-           Founduser.designation=req.body.designation;
-           Founduser.employeeType=req.body.employeeType;
-           Founduser.save(function(){
-             res.redirect("/user");
-           });
-         }
-       }
-        });
+     res.redirect("/details");
 
  });
     }
 });
+});
+app.post("/details",function(req,res){
+  User.findById(req.user._id,function(err,Founduser){
+   if(err)
+   console.log(err);
+   else{
+     if(Founduser){
+      Founduser.employeeID=req.body.employeeID;
+     Founduser.surName=req.body.surName;
+     Founduser.middleName=req.body.middleName;
+     Founduser.lastName=req.body.lastName;
+     Founduser.displayName=req.body.displayName;
+     Founduser.emailId=req.body.emailId;
+     Founduser.mobileNUmber=req.body.mobileNUmber;
+     Founduser.alternateEmailId=req.body.alternateEmailId;
+     Founduser.emergencyContactNo=req.body.emergencyContactNo;
+     Founduser.gender=req.body.gender;
+     Founduser.department=req.body.department;
+     Founduser.designation=req.body.designation;
+     Founduser.employeeType=req.body.employeeType;
+     Founduser.save(function(){
+       res.redirect("/user");
+     });
+   }
+ }
+  });
 });
 app.post("/login",function(req,res){
   const user=new User({
@@ -247,4 +248,22 @@ app.post("/publication",function(req,res){
               res.redirect("/user");
           }
       });
+});
+app.get("/intermediate",function(req,res){
+User.findById(req.user._id,function(err,Founduser){
+  if(err){
+  console.log(err);
+  res.redirect("/");
+}
+  else{
+    if(Founduser){
+    if(Founduser.department){
+      res.redirect("/user");
+    }
+    else{
+      res.redirect("/details");
+    }
+    }
+  }
+});
 });
