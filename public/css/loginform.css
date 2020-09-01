@@ -20,6 +20,8 @@ html,body{
     height: 23.125em;
     margin-top: auto;
     margin-bottom: auto;
+  
+    margin-right:auto;
     width: 25em;
     background-color: rgba(0,0,0,0.5) !important;
 }

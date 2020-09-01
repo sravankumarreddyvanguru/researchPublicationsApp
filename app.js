@@ -27,6 +27,7 @@ mongoose.set("useCreateIndex",true);
 mongoose.set('useFindAndModify', false);
 const userSchema= new mongoose.Schema({
   googleId:String,
+  title:String,
   employeeID:String,
   surName:String,
   middleName:String,
@@ -95,6 +96,9 @@ passport.use(new GoogleStrategy({
 app.listen(3000,function(){
   console.log("Server started on port 3000");
 });
+function func1() {
+ alert("user already exists");
+}
 
 app.get("/",function(req,res){
   res.render("login");
@@ -119,6 +123,11 @@ app.post("/register",function(req,res){
 User.register({username:req.body.username},req.body.password,function(err,user){
   if(err){
     console.log(err);
+    if(err.name=="UserExistsError")
+    {
+      func1();
+
+    }
     res.redirect("/register");
     }
     else{
@@ -147,7 +156,8 @@ app.post("/details",function(req,res){
      Founduser.gender=req.body.gender;
      Founduser.department=req.body.department;
      Founduser.designation=req.body.designation;
-     Founduser.employeeType=req.body.employeeType;
+      Founduser.title=req.body.title;
+      Founduser.employeeType=req.body.employeeType;
      Founduser.save(function(){
        res.redirect("/user");
      });
@@ -166,7 +176,6 @@ app.post("/login",function(req,res){
     }
     else{
     passport.authenticate("local")(req,res,function(){
-
       res.redirect("/user");
     });
   }

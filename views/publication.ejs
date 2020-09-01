@@ -107,7 +107,7 @@
 
     <form class="publication" action="/publication" method="post">
       <div class="form-group row">
-        <label for="Title" class="col-md-2 col-form-label required"><strong>Title</strong></label>
+        <label for="Title" class="col-md-2 col-form-label required"><strong>Title of the paper</strong></label>
         <div class="col-md-10">
           <input type="text" class="form-control" name="titleOfThePaper" id="Title" placeholder="Title of the paper">
         </div>
@@ -134,9 +134,16 @@
         </div>
       </div>
       <div class="form-group row">
+        <label for="Authors" class="col-md-2 col-form-label required"><strong><i>List of authors</i></strong></label>
+        <div class="col-md-10">
+          <textarea type="text" class="form-control" name="listOfAuthors" id="Authors">1</textarea>
+        </div>
+
+      </div>
+      <div class="form-group row">
         <label for="Conferece/Journal" class="col-md-2 col-form-label required"><strong><i>Conference/Journal in which Paper was published</i></strong></label>
         <div class="col-md-10">
-          <input type="year" class="form-control" name="conferenceJournal" id="Conferece/Journal">
+          <input type="text" class="form-control" name="conferenceJournal" id="Conferece/Journal">
         </div>
       </div>
       <div class="form-group row">
@@ -145,23 +152,17 @@
           <input type="date" class="form-control" name="dateOfPublication" id="Date" placeholder="date">
         </div>
       </div>
-      <div class="form-group row">
-        <label for="Authors" class="col-md-2 col-form-label required"><strong><i>List of authors</i></strong></label>
-        <div class="col-md-10">
-          <input type="text" class="form-control" name="listOfAuthors" id="Authors" placeholder="1.">
-        </div>
 
-      </div>
 
       <div class="form-row">
         <div class="form-group row col-md-7">
-          <label for="PageNos" class = "col-form-label col-md-4 required"><strong><i>No of Pages</i></strong></label>
+          <label for="PageNos" class = "col-form-label col-md-4 required"><strong><i>volume issue page numbers</i></strong></label>
           <input type="text" class="form-control col-md-8" name="volumePageNos" id="PageNos">
         </div>
         <div class="form-group row col-md-1">
         </div>
         <div class="form-group row col-md-4">
-          <label for="ISBN/ISSN" class = "col-form-label col-md-4 required"><strong><i>ISBN number</i></strong></label>
+          <label for="ISBN/ISSN" class = "col-form-label col-md-4 required"><strong><i>ISBN/ISSN number</i></strong></label>
           <input class="form-control col-md-8" type="text" name="isbn/issn" id="ISBNorISSN" pattern="[0-9]{4}-[0-9]{4}">
         </div>
       </div>
@@ -229,7 +230,7 @@
       </fieldset>
 
       <div class="form-group row">
-        <label for="DocumentForUGCListing" class="col-md-2 col-form-label required"><strong><i>Supporting document for UGC</i></strong></label>
+        <label for="DocumentForUGCListing" class="col-md-2 col-form-label required"><strong><i>Supporting document for UGC listing</i></strong></label>
         <div class="col-md-10">
           <div class="custom-file">
             <input type="text" class="form-control" name="documentForUGCListing" id="DocumentForUGCListing">
