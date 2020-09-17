@@ -96,9 +96,7 @@ passport.use(new GoogleStrategy({
 app.listen(3000,function(){
   console.log("Server started on port 3000");
 });
-function func1() {
- alert("user already exists");
-}
+
 
 app.get("/",function(req,res){
   res.render("login");
@@ -118,6 +116,12 @@ app.get("/profile",function(req,res){
     console.log("not authenticated");
     res.redirect("/");
   }
+});
+app.get("/admin",function(req,res){
+  res.render("admin");
+});
+app.get("/remove",function(req,res){
+  res.render("remove");
 });
 app.post("/register",function(req,res){
 User.register({username:req.body.username},req.body.password,function(err,user){
@@ -274,5 +278,34 @@ User.findById(req.user._id,function(err,Founduser){
     }
     }
   }
+});
+});
+app.post("/admin",function(req,res){
+User.findOne({"displayName":req.body.displayname},function(err,founduser){
+ if(err){
+   console.log(err);
+ }
+else{
+  if(founduser){
+    res.render("proff",{user:founduser});
+  }
+  else{
+    console.log("user not found");
+    res.redirect("/admin");
+  }
+}
+});
+});
+app.post("/remove",function(req,res){
+User.deleteOne({"displayName":req.body.display},function(err,founduser){
+if(err){
+  console.log(err);
+}
+else{
+  if(founduser){
+    console.log("sucssesfully deleted");
+    res.redirect("/admin");
+  }
+}
 });
 });
